@@ -11,16 +11,6 @@ console.log('ket noi toi port : 3000');
 mongoose.connect('mongodb://legendstrange1992:Ky776041164@ds149365.mlab.com:49365/shop',{ useNewUrlParser:true});
 
 app.get('/', async function(request,response){
-    var ob = {
-        tensanpham : 'Ky Smile',
-        hinh : 'abc,jpg',
-        dongia : 20000,
-        mota : 'abnasdasdas'
-    };
-    var sanpham = new SanPham_Model(ob);
-    sanpham.save();
-    var data = await SanPham_Model.find().exec();
-    console.log(data);
     response.render('index');
 });
 
