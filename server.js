@@ -9,7 +9,7 @@ var server = require('http').createServer(app);
 server.listen(3000);
 console.log('ket noi toi port : 3000');
 mongoose.connect('mongodb://legendstrange1992:Ky776041164@ds149365.mlab.com:49365/shop',{ useNewUrlParser:true});
-
+var mang = [];
 app.get('/', async function(request,response){
     response.render('index');
 });
