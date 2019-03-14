@@ -1,18 +1,15 @@
 const express               = require('express');
-const app                   = express();
-const bodyParser            = require('body-parser');
-const session               = require('express-session');
 const Route                 = express.Router();
-const SanPham_Model         = require('../model/Sanpham');
-const mongodb               = require('mongodb');
+const session               = require('express-session');
 const currencyFormatter     = require('currency-formatter');
-
-
+const mongodb               = require('mongodb');
+const SanPham_Model         = require('../model/Sanpham');
+const Donhang_Model         = require('../model/Donhang');
+const Chitietdonhang_Model  = require('../model/Chitietdonhang');
 //------------------------middleware ------------------------------------------------
 
 
-app.use(session({ secret: 'keyboard cat', resave: false,saveUninitialized: true, cookie: { maxAge: 60000 }}));
-app.use(bodyParser.urlencoded({extended: false}))
+
 function xoa_dau(str) {
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -29,7 +26,7 @@ function xoa_dau(str) {
     str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
     str = str.replace(/Đ/g, "D");
     return str;
-}
+};
 
 
 //------------------------Routes ------------------------------------------------
@@ -53,5 +50,86 @@ Route.get('/cart',(req,res) => {
     });
     total = currencyFormatter.format(total, {decimal: ',',precision: 0});
     res.render('cart',{data,total});
+})
+Route.get('/check-out',(req,res) => {
+    var data = session.cart;
+    var total = 0;
+    data.forEach(item=>{
+        total += Number(item.thanhtien);
+    });
+    total = currencyFormatter.format(total, {decimal: ',',precision: 0});
+    res.render('checkout',{total});
+});
+Route.post('/cart-complete', async (req,res) => {
+    var data = session.cart;
+    var total = 0;
+    data.forEach(item=>{
+        total += Number(item.thanhtien);
+    });
+    var dh = await Donhang_Model.find({}).sort({_id:-1}).limit(1).exec();
+    if(dh.length == 0){
+        var ob = {
+            id_donhang      : 1,
+            fullname        : req.body.fullname,
+            address         : req.body.address,
+            email           : req.body.email,
+            zipcode         : req.body.zipcode,
+            phone           : req.body.phone,
+            total           : total,
+            total_currency  : currencyFormatter.format(total, {decimal: ',',precision: 0})
+        };
+        var item = new Donhang_Model(ob);
+        item.save();
+        var cart = session.cart;
+        cart.forEach(item => {
+            var ob = {
+                id_donhang          : 1,
+                hinh                : item.hinh[0],
+                tensanpham          : item.tensanpham,
+                soluong             : item.soluong,
+                dongia              : item.dongia,
+                size                : item.size,
+                thanhtien           : item.thanhtien,
+                thanhtien_currency  : currencyFormatter.format(Number(item.thanhtien), {decimal: ',',precision: 0}) 
+            };
+            var ct = new Chitietdonhang_Model(ob);
+            ct.save();
+        });
+    }
+    else{
+        var ob = {
+            id_donhang      : Number((dh[0].id_donhang+1)),
+            fullname        : req.body.fullname,
+            address         : req.body.address,
+            email           : req.body.email,
+            zipcode         : req.body.zipcode,
+            phone           : req.body.phone,
+            total           : total,
+            total_currency  : currencyFormatter.format(total, {decimal: ',',precision: 0})
+        };
+        var item = new Donhang_Model(ob);
+        item.save();
+        var cart = session.cart;
+        cart.forEach(item => {
+            var ob = {
+                id_donhang          : Number((dh[0].id_donhang+1)),
+                hinh                : item.hinh[0],
+                tensanpham          : item.tensanpham,
+                soluong             : item.soluong,
+                dongia              : item.dongia,
+                size                : item.size,
+                thanhtien           : item.thanhtien,
+                thanhtien_currency  : currencyFormatter.format(Number(item.thanhtien), {decimal: ',',precision: 0}) 
+            };
+            var ct = new Chitietdonhang_Model(ob);
+            ct.save();
+        });
+    }
+    
+    res.send('ok');
+});
+Route.get('/test',async (req,res)=>{
+    var data = await SanPham_Model.find({}).sort({_id:-1}).limit(1).exec();
+    res.json(data[0].stt);
 })
 module.exports = Route;

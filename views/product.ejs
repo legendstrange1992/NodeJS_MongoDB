@@ -42,7 +42,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="product-pic-zoom text-center">
-						<img class="product-big-img" src="../img/single-product/<%- data[0].hinh[0] %>" width="90%" height="650" alt="">
+						<img class="product-big-img" src="../img/single-product/<%- data[0].hinh[0] %>"  alt="">
 					</div>
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
@@ -99,7 +99,9 @@
 						<p>Quantity</p>
                         <div class="pro-qty"><input id="quantity_product_detail" type="text" value="1"></div>
                     </div>
-					<a class="site-btn shopnow_product_detail" data-id_sanpham="<%- data[0]._id %>">SHOP NOW</a>
+					<a class="site-btn shopnow_product_detail" data-id_sanpham="<%- data[0]._id %>">ADD TO CART</a>
+					<br/>
+					<a href="/" class="site-btn" style="margin-top:10px;">CONTINUE BUY PRODUCT</a>
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
 							<div class="panel-header" id="headingOne">

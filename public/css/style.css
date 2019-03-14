@@ -1931,6 +1931,26 @@ ol {
 	margin-bottom: 20px;
 	font-size: 14px;
 }
+.checkout-form input[type=email] {
+	width: 100%;
+	height: 44px;
+	border: none;
+	padding: 0 18px;
+	background: #f0f0f0;
+	border-radius: 40px;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+.checkout-form input[type=number] {
+	width: 100%;
+	height: 44px;
+	border: none;
+	padding: 0 18px;
+	background: #f0f0f0;
+	border-radius: 40px;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
 
 .checkout-form .address-inputs {
 	margin-bottom: 54px;
@@ -2177,7 +2197,10 @@ ol {
 	width: 100%;
 	height: 100%;
 }
-
+.pi-pic > img {
+	height: 410px;
+}
+.product-pic-zoom > img{width: 80%;height: 550px;}
 /* ----------------
   Responsive
 ---------------------*/
@@ -2186,6 +2209,7 @@ ol {
 	.container {
 		max-width: 1175px;
 	}
+	
 }
 
 @media (max-width: 1350px) {
@@ -2208,6 +2232,7 @@ ol {
 /* Medium screen : 992px. */
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.product-pic-zoom > img{width: 90%;height: 450px;}
 	.hero-slider .slider-nav-warp {
 		max-width: 930px;
 	}
@@ -2217,11 +2242,14 @@ ol {
 	.social-links a {
 		margin-right: 20px;
 	}
+	.pi-pic > img {height: 320px;}
 }
 
 /* Tablet :768px. */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+	.pi-pic > img {width: 100%;}
+	.product-pic-zoom > img{width: 70%;height: 550px;}
 	.site-logo {
 		margin-bottom: 20px;
 	}
@@ -2281,6 +2309,7 @@ ol {
 /* Large Mobile :480px. */
 
 @media only screen and (max-width: 767px) {
+	.pi-pic > img {height: 320px; width: 100%;}
 	.site-logo {
 		margin-bottom: 20px;
 	}
@@ -2380,10 +2409,28 @@ ol {
 		top: 0;
 	}
 }
+@media only screen and (max-width: 576px){
+	.pi-pic > img {height: 450px; width: 100%;}
+	.col-sm-6 { width: 80%;margin: auto;}
+}
+@media only screen and (max-width: 532px){
+	.product-pic-zoom > img{width: 70%;height: 450px;}
+}
+@media only screen and (max-width: 480px){
+	.product-pic-zoom > img{width: 70%;height: 400px;}
+	.pi-pic > img {height: 400px; width: 100%;}
+}
+@media only screen and (max-width: 450px){
+	.product-pic-zoom > img{width: 70%;height: 350px;}
+}
+@media only screen and (max-width: 410px){
+	.product-pic-zoom > img{width: 70%;height: 300px;}
+}
 
 /* Small Mobile :320px. */
 
 @media only screen and (max-width: 479px) {
+	.pi-pic > img {height: 400px; width: 100%;}
 	.hero-slider .slider-nav-warp {
 		max-width: 510px;
 		padding: 0 15px;
@@ -2417,4 +2464,8 @@ ol {
 	.social-links a span {
 		display: none;
 	}
+}
+@media only screen and (max-width: 420px){
+	.pi-pic > img {height: 350px; width: 100%;}
+	.col-sm-6 { width: 80%;margin: auto;}
 }

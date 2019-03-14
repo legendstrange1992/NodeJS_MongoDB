@@ -22,6 +22,7 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css"/>
 	<link rel="stylesheet" href="css/animate.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -37,81 +38,52 @@
 
 
 
+	
+	<!-- checkout section  -->
 
-<!-- cart section end -->
-<section class="cart-section spad">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="cart-table">
-					<h3>Your Cart</h3>
-					<div class="cart-table-warp">
-						<table>
-						<thead>
-							<tr>
-								<th class="product-th">Product</th>
-								<th class="quy-th">Quantity</th>
-								<th class="size-th">SizeSize</th>
-								<th class="total-th">Price</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% data.forEach(function(item){
-
-							%>
-							<tr>
-								<td class="product-col">
-									<img src="../img/product/<%= item.hinh %>" alt="">
-									<div class="pc-title">
-										<h4><%= item.tensanpham%></h4>
-										<p>$<%= item.dongia_currency%></p>
-									</div>
-								</td>
-								<td class="quy-col">
-									<div class="quantity">
-										<div class="pro-qty">
-											<input type="text" value="<%= item.soluong%>">
-										</div>
-									</div>
-								</td>
-								<td class="size-col"><h4><%= item.size%></h4></td>
-								<td class="total-col"><h4>$<%= item.thanhtien_currency%></h4></td>
-							</tr>
-							<% }) %>
-						</tbody>
-					</table>
-					</div>
-					<div class="total-cost">
-						<h6>Total <span>$ <%- total %></span></h6>
+	<section class="checkout-section spad">
+			
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 order-2 order-lg-1">
+					<div class="checkout-form" action="/cart-complete" method="POST">
+						<div class="cf-title">Billing Address</div>
+						<div class="row address-inputs">
+							<div class="col-md-12">
+								<input type="text" id="fullname" placeholder="Fullname" name="fullname">
+								<input type="text" id="address" placeholder="Address" name="address">
+								<input type="email" id="email" placeholder="Email" name="email">
+							</div>
+							<div class="col-md-6">
+								<input type="text" id="zipcode" placeholder="Zip code" name="zipcode">
+							</div>
+							<div class="col-md-6">
+								<input type="number" id="phone" placeholder="Phone" name="phone">
+							</div>
+						</div>
+						
+						<input type="button" class="site-btn submit-order-btn" value="Place Order"/>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4 card-right">
-				<div class="col-lg-14 order-1 order-lg-2" style="margin-bottom: 20px;">
+				<div class="col-lg-4 order-1 order-lg-2">
 					<div class="checkout-cart">
-						<h3>Check Cart</h3>
+						<h3>Your Cart</h3>
 						<ul class="price-list">
-							<li>Total<span>$<%- total %></span></li>
-							<li>Discount<span>$00.00</span></li>
+							<li>Total<span>$<%= total%></span></li>
 							<li>Shipping<span>free</span></li>
-							<li class="total">Total<span>$<%- total %></span></li>
+							<li class="total">Total<span>$<%= total%></span></li>
 						</ul>
 					</div>
 				</div>
-				<form class="promo-code-form">
-					<input type="text" placeholder="Enter promo code">
-					<button>Submit</button>
-				</form>
-				<a href="/check-out" class="site-btn">Proceed to checkout</a>
-				<a href="/" class="site-btn sb-dark">Continue shopping</a>
 			</div>
 		</div>
-	</div>
-</section>
-<!-- cart section end -->
+	
+	</section>
+
+	<!-- checkout section end -->
 
 
-
+	
 
 	<!-- Footer section -->
 		<%- include('layouts/footer')%>
@@ -128,7 +100,7 @@
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>
-	<script src="../js/socketio.js"></script>
+	<script src="js/socketio.js"></script>
 	</body>
 </html>
 
@@ -136,4 +108,4 @@
 
 
 
-
+	
