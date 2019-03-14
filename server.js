@@ -88,7 +88,7 @@ io.on('connection',socket => {
     socket.emit('server-send-cart-length',{ cart_length : session.cart.length});
 })
 //-------------------------------------------------------------------------------------------
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
 console.log('ket noi toi port : 3000');
 mongoose.connect('mongodb://legendstrange1992:Ky776041164@ds149365.mlab.com:49365/shop',{ useNewUrlParser:true});
 
