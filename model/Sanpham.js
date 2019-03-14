@@ -5,6 +5,7 @@ var SanphamSchema = new Schema(
         tensanpham : String,
         hinh : String,
         dongia : Number,
+        hinh : [],
         mota : String
     }
 );

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Divisima | eCommerce Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content=" Divisima | eCommerce Template">
+	<meta name="keywords" content="divisima, eCommerce, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/flaticon.css"/>
+	<link rel="stylesheet" href="css/slicknav.min.css"/>
+	<link rel="stylesheet" href="css/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+		<%- include('layouts/header') %>
+	<!-- Header section end -->
+
+
+
+
+
+<!-- cart section end -->
+<section class="cart-section spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="cart-table">
+					<h3>Your Cart</h3>
+					<div class="cart-table-warp">
+						<table>
+						<thead>
+							<tr>
+								<th class="product-th">Product</th>
+								<th class="quy-th">Quantity</th>
+								<th class="size-th">SizeSize</th>
+								<th class="total-th">Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% data.forEach(function(item){
+
+							%>
+							<tr>
+								<td class="product-col">
+									<img src="../img/product/<%= item.hinh %>" alt="">
+									<div class="pc-title">
+										<h4><%= item.tensanpham%></h4>
+										<p>$<%= item.dongia_currency%></p>
+									</div>
+								</td>
+								<td class="quy-col">
+									<div class="quantity">
+										<div class="pro-qty">
+											<input type="text" value="<%= item.soluong%>">
+										</div>
+									</div>
+								</td>
+								<td class="size-col"><h4><%= item.size%></h4></td>
+								<td class="total-col"><h4>$<%= item.thanhtien_currency%></h4></td>
+							</tr>
+							<% }) %>
+						</tbody>
+					</table>
+					</div>
+					<div class="total-cost">
+						<h6>Total <span>$ <%- total %></span></h6>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 card-right">
+				<div class="col-lg-14 order-1 order-lg-2" style="margin-bottom: 20px;">
+					<div class="checkout-cart">
+						<h3>Check Cart</h3>
+						<ul class="price-list">
+							<li>Total<span>$<%- total %></span></li>
+							<li>Discount<span>$00.00</span></li>
+							<li>Shipping<span>free</span></li>
+							<li class="total">Total<span>$<%- total %></span></li>
+						</ul>
+					</div>
+				</div>
+				<form class="promo-code-form">
+					<input type="text" placeholder="Enter promo code">
+					<button>Submit</button>
+				</form>
+				<a href="" class="site-btn">Proceed to checkout</a>
+				<a href="" class="site-btn sb-dark">Continue shopping</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- cart section end -->
+
+
+
+
+	<!-- Footer section -->
+		<%- include('layouts/footer')%>
+	<!-- Footer section end -->
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.slicknav.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.nicescroll.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
+
+
+
+
+

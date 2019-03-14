@@ -204,16 +204,32 @@ $(window).on('load', function() {
 	$('.product-thumbs-track > .pt').on('click', function(){
 		$('.product-thumbs-track .pt').removeClass('active');
 		$(this).addClass('active');
-		var imgurl = $(this).data('imgbigurl');
-		var bigImg = $('.product-big-img').attr('src');
-		if(imgurl != bigImg) {
-			$('.product-big-img').attr({src: imgurl});
-			$('.zoomImg').attr({src: imgurl});
+
+		var img = $(this).attr('data-imgbigurl');
+		$('.product-big-img').attr('src',img);
+	});
+	$('#quantity_product_detail').on('keyup',function(){
+		var soluong = $(this).val();
+		if(soluong>100){
+			swal({
+				title: "số lượng mua không quá 100 !!! ",
+				text: "mời bạn đặt lại",
+				icon: "error",
+				button: "ok",
+			  });
+			$(this).val(1);
+		}
+		if(soluong < 0 ){
+			swal({
+				title: "số lượng mua phải lớn hơn  0 !!! ",
+				text: "mời bạn đặt lại",
+				icon: "error",
+				button: "ok",
+			  });
+			$(this).val(1);
 		}
 	});
-
-
-	$('.product-pic-zoom').zoom();
+	
 
 
 

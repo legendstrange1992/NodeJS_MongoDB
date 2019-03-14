@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Divisima | eCommerce Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content=" Divisima | eCommerce Template">
+	<meta name="keywords" content="divisima, eCommerce, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../css/flaticon.css"/>
+	<link rel="stylesheet" href="../css/slicknav.min.css"/>
+	<link rel="stylesheet" href="../css/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="../css/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="../css/animate.css"/>
+	<link rel="stylesheet" href="../css/style.css"/>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+		<%- include('layouts/header') %>
+	<!-- Header section end -->
+
+	<!-- product  detail -->
+		
+<section class="product-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="product-pic-zoom text-center">
+						<img class="product-big-img" src="../img/single-product/<%- data[0].hinh[0] %>" width="90%" height="650" alt="">
+					</div>
+					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+						<div class="product-thumbs-track">
+							<div class="pt active" data-imgbigurl="../img/single-product/<%- data[0].hinh[0] %>"><img src="../img/single-product/<%- data[0].hinh[0] %>" alt=""></div>
+							<div class="pt" data-imgbigurl="../img/single-product/<%- data[0].hinh[1] %>"><img src="../img/single-product/<%- data[0].hinh[1] %>" alt=""></div>
+							<div class="pt" data-imgbigurl="../img/single-product/<%- data[0].hinh[2] %>"><img src="../img/single-product/<%- data[0].hinh[2] %>" alt=""></div>
+							<div class="pt" data-imgbigurl="../img/single-product/<%- data[0].hinh[3] %>"><img src="../img/single-product/<%- data[0].hinh[3] %>" alt=""></div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-lg-6 product-details">
+					<h2 class="p-title"><%= data[0].tensanpham %></h2>
+					<h3 class="p-price">$ <%= data[0].dongia %></h3>
+					<h4 class="p-stock">Available: <span>In Stock</span></h4>
+					<div class="p-rating">
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o fa-fade"></i>
+					</div>
+					<div class="p-review">
+						<a href="">3 reviews</a>|<a href="">Add your review</a>
+					</div>
+					<div class="fw-size-choose">
+						<p>Size</p>
+						<div class="sc-item">
+							<input class="rdo" type="radio" name="sc" id="xs-size" data-size="size-XS">
+							<label for="xs-size">32</label>
+						</div>
+						<div class="sc-item">
+							<input class="rdo" type="radio" name="sc" id="s-size" data-size="size-S">
+							<label for="s-size">34</label>
+						</div>
+						<div class="sc-item">
+							<input class="rdo" type="radio" name="sc" id="m-size" data-size="size-M" >
+							<label for="m-size">36</label>
+						</div>
+						<div class="sc-item">
+							<input class="rdo rdo_active" type="radio" name="sc" id="l-size" data-size="size-L" checked/>
+							<label for="l-size">38</label>
+						</div>
+						<div class="sc-item ">
+							<input class="rdo" type="radio" name="sc" id="xl-size" data-size="size-XL" >
+							<label for="xl-size">40</label>
+						</div>
+						<div class="sc-item">
+							<input class="rdo" type="radio" name="sc" id="xxl-size"  data-size="size-XXL">
+							<label for="xxl-size">42</label>
+						</div>
+					</div>
+					<div class="quantity">
+						<p>Quantity</p>
+                        <div class="pro-qty"><input id="quantity_product_detail" type="text" value="1"></div>
+                    </div>
+					<a class="site-btn shopnow_product_detail" data-id_sanpham="<%- data[0]._id %>">SHOP NOW</a>
+					<div id="accordion" class="accordion-area">
+						<div class="panel">
+							<div class="panel-header" id="headingOne">
+								<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+							</div>
+							<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+								<div class="panel-body">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+									<p>Approx length 66cm/26" (Based on a UK size 8 sample)</p>
+									<p>Mixed fibres</p>
+									<p>The Model wears a UK size 8/ EU size 36/ US size 4 and her height is 5'8"</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-header" id="headingTwo">
+								<button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
+							</div>
+							<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+								<div class="panel-body">
+									<img src="../img/cards.png" alt="">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-header" id="headingThree">
+								<button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
+							</div>
+							<div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+								<div class="panel-body">
+									<h4>7 Days Returns</h4>
+									<p>Cash on Delivery Available<br>Home Delivery <span>3 - 4 days</span></p>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="social-sharing">
+						<a href=""><i class="fa fa-google-plus"></i></a>
+						<a href=""><i class="fa fa-pinterest"></i></a>
+						<a href=""><i class="fa fa-facebook"></i></a>
+						<a href=""><i class="fa fa-twitter"></i></a>
+						<a href=""><i class="fa fa-youtube"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Product filter section end -->
+
+
+
+
+	<!-- Footer section -->
+		<%- include('./layouts/footer')%>
+	<!-- Footer section end -->
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/jquery.slicknav.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/jquery.nicescroll.min.js"></script>
+	<script src="../js/jquery.zoom.min.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="../js/socketio.js"></script>
+	</body>
+</html>
+
+
