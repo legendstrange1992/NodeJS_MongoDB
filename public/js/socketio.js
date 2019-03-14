@@ -1,5 +1,5 @@
 $(function(){
-    var socket = io('https://shop-kysmile.herokuapp.com');
+    var socket = io('http://localhost:3000');
     $('.rdo').on('click',function(){
 		$('.rdo').removeClass('rdo_active');
 		$(this).addClass('rdo_active');
