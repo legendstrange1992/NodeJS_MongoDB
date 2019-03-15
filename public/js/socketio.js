@@ -43,5 +43,21 @@ $(function(){
       
     }
   });
-	
+	$('.update_cart').on('click',function(){
+    var mang_sl = $('.sl_cart');
+    var data = [];
+    for(let i = 0 ; i < mang_sl.length ; i++ ){
+      data[i] = mang_sl[i].value;
+    }
+    socket.emit('update-cart',data);
+  });
+  socket.on('server-send-cart-update',function(data){
+    var array_thanhtien_currency = $('.thanhtien_currency');
+    for(let i = 0 ; i < array_thanhtien_currency.length ; i++ ){
+      array_thanhtien_currency[i].innerHTML = data.cart[i]['thanhtien_currency'];
+    }
+    $('.total1').html('$'+data.total);
+    $('.total2').html('$'+data.total);
+    
+  });
 });

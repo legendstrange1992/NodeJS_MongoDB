@@ -28,7 +28,6 @@ io.on('connection',socket => {
                 dongia              : item[0].dongia,
                 hinh                : item[0].hinh[0],
                 soluong             : data.soluong,
-                soluong_currency    : currencyFormatter.format(Number(data.soluong), {decimal: ',',precision: 0}),
                 thanhtien           : Number(item[0].dongia) * Number(data.soluong),
                 thanhtien_currency  : currencyFormatter.format((Number(item[0].dongia) * Number(data.soluong)), {decimal: ',',precision: 0}),
                 size                : data.size
@@ -41,7 +40,6 @@ io.on('connection',socket => {
                 if(cart[i].id_sanpham == data.id_sanpham){
                     if(cart[i].size === data.size){
                         cart[i].soluong            = Number(cart[i].soluong) + Number(data.soluong);
-                        cart[i].soluong_currency   = currencyFormatter.format(Number(cart[i].soluong ), {decimal: ',',precision: 0});
                         cart[i].thanhtien          = Number(cart[i].soluong) * Number(cart[i].dongia);
                         cart[i].thanhtien_currency = currencyFormatter.format(Number(cart[i].thanhtien ), {decimal: ',',precision: 0});
                         break;
@@ -55,7 +53,6 @@ io.on('connection',socket => {
                                 dongia              : item[0].dongia,
                                 hinh                : item[0].hinh[0],
                                 soluong             : data.soluong,
-                                soluong_currency    : currencyFormatter.format(Number(data.soluong), {decimal: ',',precision: 0}),
                                 thanhtien           : Number(item[0].dongia) * Number(data.soluong),
                                 thanhtien_currency  : currencyFormatter.format(Number(Number(item[0].dongia) * Number(data.soluong)), {decimal: ',',precision: 0}),
                                 size                : data.size
@@ -73,7 +70,6 @@ io.on('connection',socket => {
                             dongia              : item[0].dongia,
                             hinh                : item[0].hinh[0],
                             soluong             : data.soluong,
-                            soluong_currency    : currencyFormatter.format(Number(data.soluong), {decimal: ',',precision: 0}),
                             thanhtien           : Number(item[0].dongia) * Number(data.soluong),
                             thanhtien_currency  : currencyFormatter.format(Number(Number(item[0].dongia) * Number(data.soluong)), {decimal: ',',precision: 0}),
                             size                : data.size
@@ -86,6 +82,18 @@ io.on('connection',socket => {
         socket.emit('server-send-cart-length',{ cart_length : session.cart.length});
     });
     socket.emit('server-send-cart-length',{ cart_length : session.cart.length});
+    socket.on('update-cart',data => {
+        var count = session.cart.length;
+        var total = 0;
+        for(let i = 0 ; i < count ; i++ ){
+            session.cart[i]['soluong'] = data[i];
+            session.cart[i]['thanhtien'] = Number(session.cart[i]['soluong']) * Number(session.cart[i]['dongia']);
+            session.cart[i]['thanhtien_currency'] = currencyFormatter.format(Number(session.cart[i]['thanhtien']), {decimal: ',',precision: 0});
+            total += session.cart[i]['thanhtien'];
+        }
+        socket.emit('server-send-cart-update',{cart:session.cart ,total:currencyFormatter.format(Number(total), {decimal: ',',precision: 0})});
+    })
+    
 })
 //-------------------------------------------------------------------------------------------
 server.listen(process.env.PORT || 3000);
