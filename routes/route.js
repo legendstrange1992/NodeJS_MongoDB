@@ -60,6 +60,18 @@ Route.get('/check-out',(req,res) => {
     total = currencyFormatter.format(total, {decimal: ',',precision: 0});
     res.render('checkout',{total});
 });
+Route.post('/login',async (req,res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    if(username == 'thoaiky' && password == '123'){
+        res.send('vao trang admin');
+    }
+    else{
+        var data = await SanPham_Model.find().exec();
+        var data_letest = await SanPham_Model.find().sort({stt:-1}).exec();
+        res.render('index',{data,data_letest});
+    }
+})
 Route.post('/cart-complete', async (req,res) => {
     var data = session.cart;
     var total = 0;

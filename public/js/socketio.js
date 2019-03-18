@@ -60,4 +60,10 @@ $(function(){
     $('.total2').html('$'+data.total);
     
   });
+  $('.show-modal-login').on('click',function(){
+    $('.modal-login').slideDown();
+  });
+  $('.close-modal').on('click',function(){
+    $('.modal-login').slideUp();
+  })
 });
