@@ -1772,7 +1772,23 @@ ol {
 .cart-table table tr th.quy-th {
 	padding-right: 20px;
 }
-
+.img_fly{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	z-index: 5000;
+	position: absolute;
+	animation: animate 1.5s;
+	object-fit: cover;
+	transition: 1s all ease;
+}
+@keyframes animate{
+	0%{transform: scale(0.2)}
+	25%{transform: scale(3.0)}
+	50%{transform: scale(1.8)}
+	75%{transform: scale(0.8)}
+	100%{transform: scale(0.4)}
+}
 .cart-table .product-col {
 	display: table;
 	margin-bottom: 19px;

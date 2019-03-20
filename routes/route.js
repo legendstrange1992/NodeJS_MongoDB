@@ -137,7 +137,7 @@ Route.post('/cart-complete', async (req,res) => {
             ct.save();
         });
     }
-    
+    session.cart = null;
     res.send('ok');
 });
 Route.get('/test',async (req,res)=>{
