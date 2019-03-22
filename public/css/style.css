@@ -2304,6 +2304,7 @@ a:hover{cursor: pointer;}
 	height: 100%;
 }
 .pi-pic > img {
+	width: 100%;
 	height: 410px;
 }
 .product-pic-zoom > img{width: 80%;height: 550px;}
@@ -2574,4 +2575,79 @@ a:hover{cursor: pointer;}
 @media only screen and (max-width: 420px){
 	.pi-pic > img {height: 350px; width: 100%;}
 	.col-sm-6 { width: 80%;margin: auto;}
+}
+.icon_chat:hover{cursor: pointer;}
+.chat{
+	position: fixed ;
+	z-index: 100;
+	width: 300px;
+	height: auto;
+	bottom: 10px;
+	right: 20px;
+	border-radius: 10px;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 20px #CCC;
+}
+.user_client_chat{
+	display: none;
+	border-radius: 10px;
+	width: 100%;
+	outline: none;
+	height: 50px;
+	border: none;
+	padding: 5px 0px 5px 20px; 
+	box-shadow: 0px 0px 20px #CCC;
+}
+.content_chat{
+	display: none;
+	padding: 20px 15px 10px 15px;
+	width: 300px;
+	height: 400px;
+	border-radius: 10px;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 20px #CCC;
+	overflow: auto;
+}
+.text_noidung{
+	display: none;
+	width: 100%;height: 40px;outline: none;border-bottom-right-radius:10px;border-bottom-left-radius:10px;
+	box-shadow: 0px 0px 10px #CCC;
+	padding-left:10px;
+	border:none;
+	font-size: 12px;
+	
+}
+.text_noidung:focus{
+	width: 100%;height: 40px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;
+	box-shadow: 0px 0px 20px #CCC;
+	padding-left:10px;
+	border: 0.5px solid #CCC;
+	font-size: 12px;
+	
+}
+.user{
+	font-size: 12px;
+		color: #585858;
+		float: right;
+    clear: both;
+    line-height: 1.6;
+    background: cornflowerblue;
+    display: inline-block;
+    word-wrap: break-word;
+    color: black;
+    padding: 5px 10px 5px 10px;
+	border-radius: 5px;
+	margin-bottom:5px; 
+}
+.admin{
+	font-size: 12px;
+    color: #585858;
+    line-height: 1.6;
+    background: #CCC;
+    display: inline-block;
+    word-wrap: break-word;
+    color: black;
+    padding: 5px 10px 5px 10px;
+	border-radius: 5px;
+	margin-bottom:5px; 
 }

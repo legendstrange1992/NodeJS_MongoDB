@@ -1,0 +1,42 @@
+.item_user_room{
+    display: inline-block;
+    padding: 5px 30px 5px 30px;
+    border-radius: 5px;
+    color: white;
+    line-height: 30px;
+    background: blue;
+}
+.selected_active{
+    font-weight: bold;
+    background: cornflowerblue;
+
+    border-radius: 10px;
+    padding: 10px 40px 10px 40px;
+}
+.load_user:hover{cursor: pointer;}
+.user{
+	font-size: 12px;
+    color: #585858;
+    line-height: 1.6;
+    float: right;
+    clear: both;
+    background: cornflowerblue;
+    display: inline-block;
+    word-wrap: break-word;
+    color: black;
+    padding: 5px 10px 5px 10px;
+	border-radius: 5px;
+	margin-bottom:5px; 
+}
+.admin{
+	font-size: 12px;
+    color: #585858;
+    line-height: 1.6;
+    background: #CCC;
+    display: inline-block;
+    word-wrap: break-word;
+    color: black;
+    padding: 5px 10px 5px 10px;
+	border-radius: 5px;
+	margin-bottom:5px; 
+}

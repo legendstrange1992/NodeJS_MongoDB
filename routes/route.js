@@ -6,6 +6,16 @@ const mongodb               = require('mongodb');
 const SanPham_Model         = require('../model/Sanpham');
 const Donhang_Model         = require('../model/Donhang');
 const Chitietdonhang_Model  = require('../model/Chitietdonhang');
+const multer                = require('multer');
+const storage               = multer.diskStorage({
+ destination: function (req, file, cb) {
+    cb(null, './public/img/product')
+    },
+    filename: function (req, file, cb) {
+    cb(null,Date.now() +'-'+ file.originalname )
+    }
+});
+const upload = multer({ storage: storage }) ;
 //------------------------middleware ------------------------------------------------
 
 
@@ -30,7 +40,30 @@ function xoa_dau(str) {
 
 
 //------------------------Routes ------------------------------------------------
-
+var anhs = [];
+Route.post('/uploadfile',upload.any(),function(req,res){
+    req.files.forEach(function(item){
+        anhs.push(item.filename);
+      })
+      console.log(anhs);
+    res.status(200).send(req.files);
+})
+Route.post('/upload-sanpham',async (req,res)=>{
+    var ob = {
+        tensanpham  : req.body.tensanpham,
+        stt         : 8,
+        hinhdaidien : anhs[0],
+        dongia      : req.body.dongia,
+        mota        : req.body.editor1,
+        hinh        : anhs
+    }
+    var sp = new SanPham_Model(ob);
+    sp.save();
+    anhs = [];
+    var data = await Donhang_Model.find({}).exec();
+    var data2 = await Chitietdonhang_Model.find({}).exec();
+    res.render('admin',{data,data2});
+})
 
 Route.get('/',async (req,res) => {
     var data = await SanPham_Model.find().exec();
@@ -64,13 +97,26 @@ Route.post('/login',async (req,res)=>{
     const username = req.body.username;
     const password = req.body.password;
     if(username == 'thoaiky' && password == '123'){
-        res.send('vao trang admin');
+        var data = await Donhang_Model.find({}).exec();
+        var data2 = await Chitietdonhang_Model.find({}).exec();
+        res.render('admin',{data,data2});
     }
     else{
         var data = await SanPham_Model.find().exec();
         var data_letest = await SanPham_Model.find().sort({stt:-1}).exec();
         res.render('index',{data,data_letest});
     }
+})
+Route.get('/upload',async (req,res)=>{
+    res.render('upload');
+})
+Route.get('/admin',async (req,res)=>{
+    var data = await Donhang_Model.find({}).exec();
+    var data2 = await Chitietdonhang_Model.find({}).exec();
+    res.render('admin',{data,data2});
+})
+Route.get('/chat',(req,res)=>{
+    res.render('chat');
 })
 Route.post('/cart-complete', async (req,res) => {
     var data = session.cart;
@@ -96,7 +142,7 @@ Route.post('/cart-complete', async (req,res) => {
         cart.forEach(item => {
             var ob = {
                 id_donhang          : 1,
-                hinh                : item.hinh[0],
+                hinh                : item.hinh,
                 tensanpham          : item.tensanpham,
                 soluong             : item.soluong,
                 dongia              : item.dongia,
@@ -141,7 +187,7 @@ Route.post('/cart-complete', async (req,res) => {
     res.send('ok');
 });
 Route.get('/test',async (req,res)=>{
-    var data = await SanPham_Model.find({}).sort({_id:-1}).limit(1).exec();
-    res.json(data[0].stt);
+    var cart = session.cart;
+    console.log(cart[0]);
 })
 module.exports = Route;

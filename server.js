@@ -11,12 +11,13 @@ const currencyFormatter     = require('currency-formatter');
 const bodyParser            = require('body-parser');
 //-----------------------------------------------------------------------------------------
 
-
-
-
 //----------------------------------- socket.io--------------------------------------------------------
 session.cart = [];
+var mang_room = [];
+session.array_chat = [];
 io.on('connection',socket => {
+    var room = '';
+    // --------------------socket cart -------------------
     console.log('co nguoi ket noi den server : ' + socket.id);
     socket.on('send-data-item-cart', async data => {
         var cart = session.cart;
@@ -81,7 +82,7 @@ io.on('connection',socket => {
         }
         socket.emit('server-send-cart-length',{ cart_length : session.cart.length});
     });
-    socket.emit('server-send-cart-length',{ cart_length : session.cart.length});
+    if(session.cart != null){socket.emit('server-send-cart-length',{ cart_length : session.cart.length});}
     socket.on('update-cart',data => {
         var count = session.cart.length;
         var total = 0;
@@ -92,6 +93,88 @@ io.on('connection',socket => {
             total += session.cart[i]['thanhtien'];
         }
         socket.emit('server-send-cart-update',{cart:session.cart ,total:currencyFormatter.format(Number(total), {decimal: ',',precision: 0})});
+    })
+
+    // --------------------socket chat ------------------
+    socket.on('user_client_room',(data)=>{
+        socket.join(data);
+        socket.room = data;
+        room = data;
+        mang_room = [];
+        for(r in socket.adapter.rooms){
+            if(r.length < 20){
+                mang_room.push(r);
+            }
+        }
+        socket.emit('server-send-room-socket',data);
+        io.sockets.emit('server-send-rooms',mang_room);
+    })
+    socket.on('admin_choose_room',(data)=>{
+        socket.join(data);
+        room = data;
+        var data_chat = [];
+        session.array_chat.forEach((item)=>{
+            var user_admin = "Admin_"+data;
+            if(item.user == data || item.user == user_admin ){
+                data_chat.push(item);
+            }
+        })
+        io.sockets.in(data).emit('server-send-data-chat-admin-choose-room',data_chat);
+    })
+    socket.on('client-send-data-chat', (data)=>{
+        
+        if(data.user == "Admin"){
+            var user = "Admin_"+room;
+            var ob = {
+                user : user,
+                noidung : data.noidung
+            }
+            session.array_chat.push(ob);
+        }
+        else{
+            var ob = {
+                user : data.user,
+                noidung : data.noidung
+            }
+            session.array_chat.push(ob);
+        }
+        var data_chat = [];
+        session.array_chat.forEach((item)=>{
+            var user_admin = "Admin_"+room;
+            if(item.user == room || item.user == user_admin ){
+                data_chat.push(item);
+            }
+        })
+        io.sockets.in(room).emit('sever-send-data-chat',{data,data_chat});
+    })
+    socket.on('load_noidung_chat',(data)=>{
+        var data_chat = [];
+        session.array_chat.forEach((item)=>{
+            var user_admin = "Admin_"+room;
+            if(item.user == data.user || item.user == user_admin ){
+                data_chat.push(item);
+            }
+        })
+        io.sockets.in(room).emit('server-send-data-load-noidung-chat',{data_chat});
+    })
+    socket.on('load-user',()=>{
+        mang_room = [];
+        for(r in socket.adapter.rooms){
+            if(r.length < 20){
+                mang_room.push(r);
+            }
+        }
+        
+        io.sockets.emit('server-send-rooms',mang_room);
+    })
+    socket.on("disconnect",()=>{
+        mang_room = [];
+        for(r in socket.adapter.rooms){
+            mang_room.push(r);
+        }
+        mang_room.splice(mang_room.indexOf(room),1);
+        mang_room.splice(mang_room.indexOf(socket.id),1);
+        io.sockets.emit('server-send-rooms',mang_room);
     })
     
 })

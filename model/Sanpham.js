@@ -4,7 +4,7 @@ var SanphamSchema = new Schema(
     {
         tensanpham  : String,
         stt         : Number,
-        hinh        : String,
+        hinhdaidien : String,
         dongia      : Number,
         hinh        : [],
         mota        : String
